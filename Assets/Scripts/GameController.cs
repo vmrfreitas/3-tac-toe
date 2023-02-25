@@ -9,8 +9,9 @@ public class GameController : MonoBehaviour
     public Sprite xSprite;
     public Sprite oSprite;
     public bool playerTurn;
-    private int[] stateCheckValues = new int[8];
-
+    private int[] lineSums = new int[3];
+    private int[] columnSums = new int[3];
+    private int[] diagonalSums = new int[2];
     public int[,] gameState = new int[3, 3];
     int[] checkValues = new int[5];
     // Start is called before the first frame update
@@ -25,56 +26,42 @@ public class GameController : MonoBehaviour
     }
 
     public int checkGameState(){
-        for(int i=0; i<8; i++){
-            if(stateCheckValues[i]==3){
+        for(int i=0; i<3; i++){
+            if(lineSums[i]==3 || columnSums[i]==3){
                 return 1;
-            } else if(stateCheckValues[i]==-3){
+            } else if(lineSums[i]==-3 || columnSums[i]==-3){
                 return -1;
             }
+        }
+        if(diagonalSums[0] == 3 || diagonalSums[1] == 3){
+            return 1;
+        }else if(diagonalSums[0]==-3 || diagonalSums[1]==-3){
+            return -1;
         }
         return 0;
     }
 
-    public void updateGameStatus(){
-        int stateCheckIndex = 0;
-        int newTileValue = 0;
+    public void updateGameStatus(int x, int y){
+        lineSums[x] = 0;
         for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                newTileValue += gameState[i,j];
-                
-            }
-            if(stateCheckValues[stateCheckIndex] != newTileValue){
-                stateCheckValues[stateCheckIndex] = newTileValue;
-            }
-            newTileValue = 0;
-            stateCheckIndex++;
+            lineSums[x] += gameState[x, i];
         }
-        
-        for(int j=0; j<3; j++){
+
+        columnSums[y] = 0;
+        for(int i=0; i<3; i++){
+            columnSums[y] += gameState[i, y];
+        }
+
+        if (x==y || x==(2-y)){
+            diagonalSums[0] = 0;
             for(int i=0; i<3; i++){
-                newTileValue += gameState[i,j];
+                diagonalSums[0] += gameState[i, i];
             }
-            if(stateCheckValues[stateCheckIndex] != newTileValue){
-                stateCheckValues[stateCheckIndex] = newTileValue;
-            }
-            newTileValue = 0;
-            stateCheckIndex++;
-        }
 
-        for(int i=0; i<3; i++){
-            newTileValue += gameState[i,i];
-            if(stateCheckValues[stateCheckIndex] != newTileValue){
-                stateCheckValues[stateCheckIndex] = newTileValue;
+            diagonalSums[1] = 0;
+            for(int i=0; i<3; i++){
+                diagonalSums[1] += gameState[i, 2-i];
             }
-        }
-        stateCheckIndex++;
-        newTileValue = 0;
-        for(int i=0; i<3; i++){
-            newTileValue += gameState[i, 2-i];
-            if(stateCheckValues[stateCheckIndex] != newTileValue){
-                stateCheckValues[stateCheckIndex] = newTileValue;
-            }
-        }
-
+        } 
     }
 }
