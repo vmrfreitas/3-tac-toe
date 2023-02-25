@@ -17,30 +17,31 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameController.gameState[tileCoord.x, tileCoord.y]==1){
+            spriteRenderer.sprite = gameController.xSprite;
+        } else if(gameController.gameState[tileCoord.x, tileCoord.y]==-1){
+            spriteRenderer.sprite = gameController.oSprite;
+        } else if(gameController.gameState[tileCoord.x, tileCoord.y]==0){
+            spriteRenderer.sprite = null;
+        }
     }
 
     void OnMouseOver() {
-        Sprite playSprite;
-        int playValue;
         if(gameController.gameState[tileCoord.x, tileCoord.y]==0){
             if(Input.GetMouseButtonDown(0)){
                 if(gameController.playerTurn){
-                    playValue = 1;
-                    playSprite = gameController.xSprite;
+                    gameController.gameState[tileCoord.x, tileCoord.y] = 1;
+                    gameController.updateGameStatus(tileCoord.x, tileCoord.y);
+                    gameController.checkGameState(true);
                     gameController.playerTurn = false;
-                } else {
-                    playValue = -1;
-                    playSprite = gameController.oSprite;
-                    gameController.playerTurn = true;
-                }
-                gameController.gameState[tileCoord.x, tileCoord.y] = playValue;
-                spriteRenderer.sprite = playSprite;
-
-                gameController.updateGameStatus(tileCoord.x, tileCoord.y);
-                if (gameController.checkGameState() == 1){
-                    Debug.Log("player won");
-                } else if(gameController.checkGameState() == -1){
-                    Debug.Log("computer won");
+                
+                    if(!gameController.gameOver){
+                        Vector2 aiMove = gameController.makeAIPlay();
+                        gameController.gameState[(int)aiMove.x, (int)aiMove.y] = -1;
+                        gameController.updateGameStatus((int)aiMove.x, (int)aiMove.y);
+                        gameController.checkGameState(true);
+                        gameController.playerTurn = true;
+                    }
                 }
             }
         }
