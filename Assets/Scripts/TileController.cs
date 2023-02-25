@@ -35,6 +35,13 @@ public class TileController : MonoBehaviour
                 }
                 gameController.gameState[tileCoord.x, tileCoord.y] = playValue;
                 spriteRenderer.sprite = playSprite;
+
+                gameController.updateGameStatus();
+                if (gameController.checkGameState() == 1){
+                    Debug.Log("player won");
+                } else if(gameController.checkGameState() == -1){
+                    Debug.Log("computer won");
+                }
             }
         }
     }
