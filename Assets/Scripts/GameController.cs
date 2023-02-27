@@ -30,28 +30,52 @@ public class GameController : MonoBehaviour
     public int checkGameState(bool forReal){
         for(int i=0; i<3; i++){
             if(lineSums[i]==3 || columnSums[i]==3){
+                if(forReal){
+                    Debug.Log("player won");
+                }
+                gameOver = true;
                 return 1;
             } else if(lineSums[i]==-3 || columnSums[i]==-3){
+                if(forReal){
+                    Debug.Log("computer won");
+                }
+                gameOver = true;
                 return -1;
             }
         }
         if(diagonalSums[0] == 3 || diagonalSums[1] == 3){
             if(forReal){
                 Debug.Log("player won");
-                gameOver = true;
             }
+            gameOver = true;
             return 1;
         }else if(diagonalSums[0]==-3 || diagonalSums[1]==-3){
             if(forReal){
                 Debug.Log("computer won");
-                gameOver = true;
             }
+            gameOver = true;
             return -1;
+        }
+
+        bool tie = true;
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if(gameState[i,j]==0){
+                    tie = false; 
+                }
+            }
+        }
+        if (tie){
+            if(forReal){
+                Debug.Log("its a tie!");
+            }
+            gameOver = true;
+            return 0;
         }
         return 0;
     }
 
-    public void updateGameStatus(int x, int y){
+    public void updateGameState(int x, int y){
         lineSums[x] = 0;
         for(int i=0; i<3; i++){
             lineSums[x] += gameState[x, i];
@@ -76,21 +100,23 @@ public class GameController : MonoBehaviour
     }
 
     public Vector2 makeAIPlay(){
-
         int [,] oldGameState = (int[,])gameState.Clone();
-        var minReturn = minValue();
+        (var uselessValue, var minReturn) = minValue();
         gameState = oldGameState;
         for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                this.updateGameStatus(i,j);
-            }
+            this.updateGameState(i,0);
         }
-        return minReturn.Item2;
+        for(int i=0; i<3; i++){
+            this.updateGameState(0,i);
+        }
+        gameOver = false;
+        return minReturn;
     }
 
     private (int, Vector2) maxValue(){
         var utilityValue = this.checkGameState(false); 
-        if(utilityValue != 0){
+        if(gameOver){
+            gameOver = false;
             return (utilityValue, new Vector2());
         }
         Vector2 returnMove = new Vector2();
@@ -109,7 +135,8 @@ public class GameController : MonoBehaviour
 
     private (int, Vector2) minValue(){
         var utilityValue = this.checkGameState(false); 
-        if(utilityValue != 0){
+        if(gameOver){
+            gameOver = false;
             return (utilityValue, new Vector2());
         }
 
@@ -142,7 +169,7 @@ public class GameController : MonoBehaviour
 
     private int[,] makeMoveInGame(Vector2 move, int moveValue){
         gameState[(int)move.x, (int)move.y] = moveValue;
-        this.updateGameStatus((int)move.x, (int)move.y);
+        this.updateGameState((int)move.x, (int)move.y);
         return gameState;
     }
 }

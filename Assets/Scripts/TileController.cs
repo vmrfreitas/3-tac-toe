@@ -27,18 +27,18 @@ public class TileController : MonoBehaviour
     }
 
     void OnMouseOver() {
-        if(gameController.gameState[tileCoord.x, tileCoord.y]==0){
+        if(gameController.gameState[tileCoord.x, tileCoord.y]==0 && !gameController.gameOver){
             if(Input.GetMouseButtonDown(0)){
                 if(gameController.playerTurn){
                     gameController.gameState[tileCoord.x, tileCoord.y] = 1;
-                    gameController.updateGameStatus(tileCoord.x, tileCoord.y);
+                    gameController.updateGameState(tileCoord.x, tileCoord.y);
                     gameController.checkGameState(true);
                     gameController.playerTurn = false;
                 
                     if(!gameController.gameOver){
                         Vector2 aiMove = gameController.makeAIPlay();
                         gameController.gameState[(int)aiMove.x, (int)aiMove.y] = -1;
-                        gameController.updateGameStatus((int)aiMove.x, (int)aiMove.y);
+                        gameController.updateGameState((int)aiMove.x, (int)aiMove.y);
                         gameController.checkGameState(true);
                         gameController.playerTurn = true;
                     }
