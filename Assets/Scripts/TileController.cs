@@ -17,33 +17,37 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameController.gameState[tileCoord.x, tileCoord.y]==1){
+        int[,] gameMatrix = gameController.globalGameState.gameMatrix;
+        if(gameMatrix[tileCoord.x, tileCoord.y]==1){
             spriteRenderer.sprite = gameController.xSprite;
-        } else if(gameController.gameState[tileCoord.x, tileCoord.y]==-1){
+        } else if(gameMatrix[tileCoord.x, tileCoord.y]==-1){
             spriteRenderer.sprite = gameController.oSprite;
-        } else if(gameController.gameState[tileCoord.x, tileCoord.y]==0){
+        } else if(gameMatrix[tileCoord.x, tileCoord.y]==0){
             spriteRenderer.sprite = null;
         }
     }
 
     void OnMouseOver() {
-        if(gameController.gameState[tileCoord.x, tileCoord.y]==0 && !gameController.gameOver){
+        int utilityValue;
+        var gameState = gameController.globalGameState;
+        if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){
             if(Input.GetMouseButtonDown(0)){
                 if(gameController.playerTurn){
-                    gameController.gameState[tileCoord.x, tileCoord.y] = 1;
-                    gameController.updateGameState(tileCoord.x, tileCoord.y);
-                    gameController.checkGameState(true);
+                    gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
+                    gameState = gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
+                    (utilityValue, gameState) = gameController.checkGameState(gameState, true);
                     gameController.playerTurn = false;
                 
-                    if(!gameController.gameOver){
+                    if(!gameState.gameOver){
                         Vector2 aiMove = gameController.makeAIPlay();
-                        gameController.gameState[(int)aiMove.x, (int)aiMove.y] = -1;
-                        gameController.updateGameState((int)aiMove.x, (int)aiMove.y);
-                        gameController.checkGameState(true);
+                        gameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
+                        gameState = gameController.updateGameState(gameState, (int)aiMove.x, (int)aiMove.y);
+                        (utilityValue, gameState) = gameController.checkGameState(gameState, true);
                         gameController.playerTurn = true;
                     }
                 }
             }
+            gameController.globalGameState = gameState;
         }
     }
 }
