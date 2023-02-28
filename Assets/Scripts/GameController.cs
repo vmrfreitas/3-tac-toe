@@ -26,20 +26,31 @@ public class GameController : MonoBehaviour
     {
     }
 
-    public (int, GameState) checkGameState(GameState gameState, bool forReal){
+    public int checkGameState(GameState gameState, bool forReal){
+        if(gameState.turnNum<5){
+            return 0;
+        }
+        if (gameState.turnNum == 9){
+            if(forReal){
+                Debug.Log("its a tie!");
+            }
+            gameState.gameOver = true;
+            return 0;
+        }
+
         for(int i=0; i<3; i++){
             if(gameState.lineSums[i]==3 || gameState.columnSums[i]==3){
                 if(forReal){
                     Debug.Log("player won");
                 }
                 gameState.gameOver = true;
-                return (1, gameState);
+                return 1;
             } else if(gameState.lineSums[i]==-3 || gameState.columnSums[i]==-3){
                 if(forReal){
                     Debug.Log("computer won");
                 }
                 gameState.gameOver = true;
-                return (-1, gameState);
+                return -1;
             }
         }
         if(gameState.diagonalSums[0] == 3 || gameState.diagonalSums[1] == 3){
@@ -47,34 +58,19 @@ public class GameController : MonoBehaviour
                 Debug.Log("player won");
             }
             gameState.gameOver = true;
-            return (1, gameState);
+            return 1;
         }else if(gameState.diagonalSums[0]==-3 || gameState.diagonalSums[1]==-3){
             if(forReal){
                 Debug.Log("computer won");
             }
             gameState.gameOver = true;
-            return (-1, gameState);
+            return -1;
         }
-
-        bool tie = true;
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                if(gameState.gameMatrix[i,j]==0){
-                    tie = false; 
-                }
-            }
-        }
-        if (tie){
-            if(forReal){
-                Debug.Log("its a tie!");
-            }
-            gameState.gameOver = true;
-            return (0, gameState);
-        }
-        return (0, gameState);
+        return 0;
     }
 
-    public GameState updateGameState(GameState gameState, int x, int y){
+    public void updateGameState(GameState gameState, int x, int y){
+        gameState.turnNum++;
         gameState.lineSums[x] = 0;
         for(int i=0; i<3; i++){
             gameState.lineSums[x] += gameState.gameMatrix[x, i];
@@ -96,7 +92,6 @@ public class GameController : MonoBehaviour
                 gameState.diagonalSums[1] += gameState.gameMatrix[i, 2-i];
             }
         }
-        return gameState;
     }
 
     public Vector2 makeAIPlay(){
@@ -116,8 +111,7 @@ public class GameController : MonoBehaviour
     }
 
     private (int, Vector2) maxValue(GameState gameState){
-        int utilityValue;
-        (utilityValue, gameState) = this.checkGameState(gameState, false); 
+        int utilityValue = this.checkGameState(gameState, false); 
         if(gameState.gameOver){
             //gameOver = false;
             return (utilityValue, new Vector2());
@@ -126,8 +120,12 @@ public class GameController : MonoBehaviour
         int value = int.MinValue;
         var possibleMoves = this.possibleMoves(gameState.gameMatrix);
         foreach(Vector2 move in possibleMoves){
-            gameState = this.makeMoveInGame(gameState, move, 1);
-            (int value2, Vector2 move2) = minValue(gameState.clone());
+            var newGameState = gameState.clone();
+            this.makeMoveInGame(newGameState, move, 1);
+            (int value2, Vector2 move2) = minValue(newGameState);
+            if(value2 == 1){
+                return (value2, move);
+            }
             if(value2>value){
                 value = value2;
                 returnMove = move;
@@ -137,8 +135,7 @@ public class GameController : MonoBehaviour
     }
 
     private (int, Vector2) minValue(GameState gameState){
-        int utilityValue;
-        (utilityValue, gameState) = this.checkGameState(gameState, false); 
+        int utilityValue = this.checkGameState(gameState, false); 
         if(gameState.gameOver){
             //gameOver = false;
             return (utilityValue, new Vector2());
@@ -148,8 +145,12 @@ public class GameController : MonoBehaviour
         int value = int.MaxValue;
         var possibleMoves = this.possibleMoves(gameState.gameMatrix);
         foreach(Vector2 move in possibleMoves){
-            gameState = this.makeMoveInGame(gameState, move, -1);
-            (int value2, Vector2 move2) = maxValue(gameState.clone());
+            var newGameState = gameState.clone();
+            this.makeMoveInGame(newGameState, move, -1);
+            (int value2, Vector2 move2) = maxValue(newGameState);
+            if(value2 == -1){
+                return (value2, move);
+            }
             if(value2<value){
                 value = value2;
                 returnMove = move;
@@ -171,10 +172,9 @@ public class GameController : MonoBehaviour
         return moves;
     }
 
-    private GameState makeMoveInGame(GameState gameState, Vector2 move, int moveValue){
+    private void makeMoveInGame(GameState gameState, Vector2 move, int moveValue){
         gameState.gameMatrix[(int)move.x, (int)move.y] = moveValue;
-        gameState = this.updateGameState(gameState, (int)move.x, (int)move.y);
-        return gameState;
+        this.updateGameState(gameState, (int)move.x, (int)move.y);
     }
 
     public class GameState {
@@ -182,6 +182,7 @@ public class GameController : MonoBehaviour
         public int[] lineSums;
         public int[] columnSums;
         public int[] diagonalSums;
+        public int turnNum;
         public bool gameOver;
 
 		public GameState() {
@@ -189,6 +190,7 @@ public class GameController : MonoBehaviour
 			lineSums = new int[3];
             columnSums = new int[3];
             diagonalSums = new int[2];
+            turnNum = 0;
             gameOver = false;
 		}
 

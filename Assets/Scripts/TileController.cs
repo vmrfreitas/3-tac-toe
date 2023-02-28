@@ -28,26 +28,24 @@ public class TileController : MonoBehaviour
     }
 
     void OnMouseOver() {
-        int utilityValue;
         var gameState = gameController.globalGameState;
         if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){
             if(Input.GetMouseButtonDown(0)){
                 if(gameController.playerTurn){
                     gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
-                    gameState = gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
-                    (utilityValue, gameState) = gameController.checkGameState(gameState, true);
+                    gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
+                    gameController.checkGameState(gameState, true);
                     gameController.playerTurn = false;
                 
                     if(!gameState.gameOver){
                         Vector2 aiMove = gameController.makeAIPlay();
                         gameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
-                        gameState = gameController.updateGameState(gameState, (int)aiMove.x, (int)aiMove.y);
-                        (utilityValue, gameState) = gameController.checkGameState(gameState, true);
+                        gameController.updateGameState(gameState, (int)aiMove.x, (int)aiMove.y);
+                        gameController.checkGameState(gameState, true);
                         gameController.playerTurn = true;
                     }
                 }
             }
-            gameController.globalGameState = gameState;
         }
     }
 }
