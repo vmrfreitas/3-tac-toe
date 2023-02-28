@@ -17,33 +17,23 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int[,] gameMatrix = gameController.globalGameState.gameMatrix;
-        if(gameMatrix[tileCoord.x, tileCoord.y]==1){
+        int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
+        if(tileValue == 1){
             spriteRenderer.sprite = gameController.xSprite;
-        } else if(gameMatrix[tileCoord.x, tileCoord.y]==-1){
+        } else if(tileValue == -1){
             spriteRenderer.sprite = gameController.oSprite;
-        } else if(gameMatrix[tileCoord.x, tileCoord.y]==0){
-            spriteRenderer.sprite = null;
         }
     }
 
     void OnMouseOver() {
-        var gameState = gameController.globalGameState;
-        if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){
-            if(Input.GetMouseButtonDown(0)){
-                if(gameController.playerTurn){
+        if(gameController.playerTurn){
+            var gameState = gameController.globalGameState;
+            if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){
+                if(Input.GetMouseButtonDown(0)){
                     gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
                     gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
                     gameController.checkGameState(gameState, true);
                     gameController.playerTurn = false;
-                
-                    if(!gameState.gameOver){
-                        Vector2 aiMove = gameController.makeAIPlay();
-                        gameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
-                        gameController.updateGameState(gameState, (int)aiMove.x, (int)aiMove.y);
-                        gameController.checkGameState(gameState, true);
-                        gameController.playerTurn = true;
-                    }
                 }
             }
         }
