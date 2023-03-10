@@ -7,21 +7,29 @@ public class TileController : MonoBehaviour
     public Vector2Int tileCoord;
     public SpriteRenderer spriteRenderer;
     private GameController gameController;
+    public AnimationController animationController;
 
     // Start is called before the first frame update
     void Start()
     {
         gameController = transform.GetComponentInParent<GameController>();
+        //var go1 = new GameObject { name = "Circle" };
+        //go1.DrawCircle(1, .02f);
+        //var what = transform.GetComponent<hasDrawing>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
-        if(tileValue == 1){
-            spriteRenderer.sprite = gameController.xSprite;
-        } else if(tileValue == -1){
-            spriteRenderer.sprite = gameController.oSprite;
+        if(spriteRenderer.sprite == null){
+            int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
+            if(tileValue == 1){
+                StartCoroutine(animationController.drawMove("x"));
+                //spriteRenderer.sprite = gameController.xSprite;
+            } else if(tileValue == -1){
+                StartCoroutine(animationController.drawMove("o"));
+                //spriteRenderer.sprite = gameController.oSprite;
+            }
         }
     }
 
@@ -34,6 +42,7 @@ public class TileController : MonoBehaviour
                     gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
                     gameController.checkGameState(gameState, true);
                     gameController.playerTurn = false;
+                    gameController.animationPlaying = true;
                 }
             }
         }

@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public Sprite xSprite;
     public Sprite oSprite;
     public bool playerTurn;
+    public bool animationPlaying;
     public GameState globalGameState = new GameState();
     int[] checkValues = new int[5];
     // Start is called before the first frame update
@@ -21,15 +22,18 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if(!playerTurn){
-            if(!globalGameState.gameOver){
-                Vector2 aiMove = getAiMove();
-                globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
-                updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
-                checkGameState(globalGameState, true);
-                playerTurn = true;
+        if(!animationPlaying){
+            if(!playerTurn){
+                if(!globalGameState.gameOver){
+                    Vector2 aiMove = getAiMove();
+                    globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
+                    updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
+                    checkGameState(globalGameState, true);
+                    playerTurn = true;
+                    animationPlaying = true;
+                }
             }
         }
     }
