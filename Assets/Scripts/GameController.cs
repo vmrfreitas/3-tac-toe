@@ -24,15 +24,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!animationPlaying){
-            if(!playerTurn){
-                if(!globalGameState.gameOver){
-                    Vector2 aiMove = getAiMove();
-                    globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
-                    updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
-                    checkGameState(globalGameState, true);
-                    playerTurn = true;
-                    animationPlaying = true;
+        if(GameOptions.singlePlayer){
+            if(!animationPlaying){
+                if(!playerTurn){
+                    if(!globalGameState.gameOver){
+                        Vector2 aiMove = getAiMove();
+                        globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
+                        updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
+                        checkGameState(globalGameState, true);
+                        playerTurn = true;
+                        animationPlaying = true;
+                    }
                 }
             }
         }

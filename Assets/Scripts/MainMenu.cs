@@ -77,12 +77,12 @@ public class MainMenu : MonoBehaviour
     }
 
     public void SinglePlayerSelected(){
-        GameOptions.playerNumber = 1;
+        GameOptions.singlePlayer = true;
         StartGame();
     }
 
     public void MultiPlayerSelected(){
-        GameOptions.playerNumber = 2;
+        GameOptions.singlePlayer = false;
         StartGame();
     }
 
