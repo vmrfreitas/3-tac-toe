@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameOptions
 {
-    public static bool singlePlayer;
+    public static bool singlePlayer = true;
     public static GameType gameType;
 }
 

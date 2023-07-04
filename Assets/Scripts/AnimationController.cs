@@ -21,7 +21,6 @@ public class AnimationController : MonoBehaviour
 
     public void animationStopped(){
         if(gameController.animationPlaying){
-            Debug.Log("nandakore");
             gameController.animationPlaying = false;
         }
     }
