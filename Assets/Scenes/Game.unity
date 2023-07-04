@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 2, y: 1}
   spriteRenderer: {fileID: 510514755}
-  animationController: {fileID: 510514757}
+  animationDrawer: {fileID: 510514757}
 --- !u!114 &510514757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 2, y: 2}
   spriteRenderer: {fileID: 553207358}
-  animationController: {fileID: 553207361}
+  animationDrawer: {fileID: 553207361}
 --- !u!95 &553207360
 Animator:
   serializedVersion: 5
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 1, y: 2}
   spriteRenderer: {fileID: 606388741}
-  animationController: {fileID: 606388743}
+  animationDrawer: {fileID: 606388743}
 --- !u!114 &606388743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 0, y: 2}
   spriteRenderer: {fileID: 758080881}
-  animationController: {fileID: 758080884}
+  animationDrawer: {fileID: 758080884}
 --- !u!95 &758080883
 Animator:
   serializedVersion: 5
@@ -1299,7 +1299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 0, y: 1}
   spriteRenderer: {fileID: 798594590}
-  animationController: {fileID: 798594592}
+  animationDrawer: {fileID: 798594592}
 --- !u!114 &798594592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 1, y: 0}
   spriteRenderer: {fileID: 1042911336}
-  animationController: {fileID: 1042911338}
+  animationDrawer: {fileID: 1042911338}
 --- !u!114 &1042911338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 1, y: 1}
   spriteRenderer: {fileID: 1317437478}
-  animationController: {fileID: 1317437481}
+  animationDrawer: {fileID: 1317437481}
 --- !u!95 &1317437480
 Animator:
   serializedVersion: 5
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 0, y: 0}
   spriteRenderer: {fileID: 1441041495}
-  animationController: {fileID: 1441041496}
+  animationDrawer: {fileID: 1441041496}
 --- !u!212 &1441041495
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileCoord: {x: 2, y: 0}
   spriteRenderer: {fileID: 1928085308}
-  animationController: {fileID: 1928085311}
+  animationDrawer: {fileID: 1928085311}
 --- !u!95 &1928085310
 Animator:
   serializedVersion: 5

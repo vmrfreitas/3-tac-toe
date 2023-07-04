@@ -7,7 +7,7 @@ public class TileController : MonoBehaviour
     public Vector2Int tileCoord;
     public SpriteRenderer spriteRenderer;
     private GameController gameController;
-    public AnimationController animationController;
+    public AnimationDrawer animationDrawer;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +24,10 @@ public class TileController : MonoBehaviour
         if(spriteRenderer.sprite == null){
             int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
             if(tileValue == 1){
-                StartCoroutine(animationController.drawMove("x")); // will vary
+                StartCoroutine(animationDrawer.drawMove("x")); // will vary
                 //spriteRenderer.sprite = gameController.xSprite;
             } else if(tileValue == -1){
-                StartCoroutine(animationController.drawMove("o"));
+                StartCoroutine(animationDrawer.drawMove("o"));
                 //spriteRenderer.sprite = gameController.oSprite;
             }
         }
