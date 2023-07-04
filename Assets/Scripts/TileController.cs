@@ -24,7 +24,7 @@ public class TileController : MonoBehaviour
         if(spriteRenderer.sprite == null){
             int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
             if(tileValue == 1){
-                StartCoroutine(animationController.drawMove("x"));
+                StartCoroutine(animationController.drawMove("x")); // will vary
                 //spriteRenderer.sprite = gameController.xSprite;
             } else if(tileValue == -1){
                 StartCoroutine(animationController.drawMove("o"));
@@ -36,7 +36,7 @@ public class TileController : MonoBehaviour
     void OnMouseOver() {
         if(gameController.playerTurn){
             var gameState = gameController.globalGameState;
-            if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){
+            if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){ // will vary
                 if(Input.GetMouseButtonDown(0)){
                     gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
                     gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
