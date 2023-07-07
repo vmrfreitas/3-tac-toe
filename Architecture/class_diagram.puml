@@ -1,0 +1,133 @@
+@startuml o-how-to-do-it 
+!include style.iuml
+
+class BoardState {
+    - boardMatrix : int[,]
+    - lineSums : int[]
+    - columnSums : int[]
+    - diagonalSums : int[]
+    - turnNum : int
+}
+
+class GameState
+{
+    gameType : GameType
+    singlePlayer : bool
+    gameOver : bool
+    playerTurn : bool
+    animationPlaying : bool
+}
+
+enum GameType{
+    TicTacToe
+    TickOatTwo
+    WildTicTacToe
+}
+
+class GameOrchestrator {
+    + Start()
+    + Update()
+}
+
+class BoardStateUpdater {
+    + update()
+}
+
+
+interface ComputerMoveCalculator {
+    + calculate() : Vector2
+}
+
+class HardComputerMoveCalc {
+    + calculate() : Vector2
+}
+
+interface PossibleMovesCalculator {
+    + calculate() : List<Vector2> 
+}
+
+class DefaultMovesCalculator {
+}
+
+class WildMovesCalculator {
+}
+
+class TickOatMovesCalculator {
+}
+
+interface BoardStateChecker {
+    + check() : int
+}
+
+class DefaultBoardStateChecker {
+}
+
+class WildBoardStateChecker {
+}
+
+class TickOatBoardStateChecker {
+}
+
+class ComputerMoveCalculatorFactory {
+    + make() : ComputerMoveCalculator
+}
+
+class GameUpdateValidator {
+    - validationRules : List<GameUpdateValidationRule>
+    + validate() : bool
+}
+
+interface GameUpdateValidationRule {
+    + isValid() : bool
+}
+
+class SinglePlayerValidationRule {
+}
+
+class AnimationPlayingValidationRule {
+}
+
+class PlayerTurnValidationRule {
+}
+
+class GameOverValidationRule {
+}
+
+class TileController {
+    + Start()
+    + Update()
+}
+
+class AnimationPicker {
+    + pick() : string
+}
+
+class AnimationDrawer {
+    + draw()
+}
+
+
+GameOrchestrator *-- BoardStateUpdater
+GameOrchestrator *-- ComputerMoveCalculatorFactory
+GameOrchestrator *-- GameUpdateValidator
+GameUpdateValidator *-- GameUpdateValidationRule
+GameUpdateValidationRule <|-- AnimationPlayingValidationRule
+GameUpdateValidationRule <|-- PlayerTurnValidationRule
+GameUpdateValidationRule <|-- GameOverValidationRule
+GameUpdateValidationRule <|-- SinglePlayerValidationRule
+ComputerMoveCalculator <|-- HardComputerMoveCalc
+HardComputerMoveCalc *-- PossibleMovesCalculator
+HardComputerMoveCalc *-- BoardStateChecker
+PossibleMovesCalculator <|-- DefaultMovesCalculator
+PossibleMovesCalculator <|-- WildMovesCalculator
+PossibleMovesCalculator <|-- TickOatMovesCalculator
+BoardStateChecker <|-- DefaultBoardStateChecker
+BoardStateChecker <|-- WildBoardStateChecker
+BoardStateChecker <|-- TickOatBoardStateChecker
+ComputerMoveCalculator <-up- ComputerMoveCalculatorFactory : creates
+BoardStateChecker <-up- ComputerMoveCalculatorFactory : creates
+PossibleMovesCalculator <-up- ComputerMoveCalculatorFactory : creates
+TileController *-- AnimationDrawer
+AnimationDrawer *-- AnimationPicker
+GameState -- GameType
+@enduml

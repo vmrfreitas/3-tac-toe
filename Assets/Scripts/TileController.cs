@@ -34,18 +34,20 @@ public class TileController : MonoBehaviour
     }
 
     void OnMouseOver() {
+         if(Input.GetMouseButtonDown(0)){
         if(gameController.playerTurn){
             var gameState = gameController.globalGameState;
             if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){ // will vary
-                if(Input.GetMouseButtonDown(0)){
+               
                     gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
                     gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
                     gameController.checkGameState(gameState, true);
                     gameController.playerTurn = false;
                     gameController.animationPlaying = true;
-                }
+                
             }
         }
+    }
     }
 }
 
