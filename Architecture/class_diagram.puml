@@ -1,4 +1,4 @@
-@startuml o-how-to-do-it 
+@startuml 3-tac-toe
 !include style.iuml
 
 class BoardState {
