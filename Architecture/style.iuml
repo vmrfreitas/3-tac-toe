@@ -1,4 +1,5 @@
 skinparam{
+    backgroundcolor transparent
     ArrowFontColor #F7A830
     TitleFontColor #F7A830
     ObjectFontColor #F7A830
