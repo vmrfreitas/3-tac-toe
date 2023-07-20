@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Newtonsoft.Json;
 
-public class GameController : MonoBehaviour
+public class GameOrchestrator : MonoBehaviour
 {
     public GameObject game;
     public Sprite xSprite;

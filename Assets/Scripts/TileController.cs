@@ -6,13 +6,13 @@ public class TileController : MonoBehaviour
 {
     public Vector2Int tileCoord;
     public SpriteRenderer spriteRenderer;
-    private GameController gameController;
+    private GameOrchestrator gameController;
     public AnimationDrawer animationDrawer;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameController = transform.GetComponentInParent<GameController>();
+        gameController = transform.GetComponentInParent<GameOrchestrator>();
         //var go1 = new GameObject { name = "Circle" };
         //go1.DrawCircle(1, .02f);
         //var what = transform.GetComponent<hasDrawing>();

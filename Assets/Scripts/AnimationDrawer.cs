@@ -5,12 +5,12 @@ using UnityEngine;
 public class AnimationDrawer : MonoBehaviour
 {
     public Animator animator;
-    private GameController gameController;
+    private GameOrchestrator gameController;
     // Start is called before the first frame update
     void Start()
     {        
         //animator.Play("static_x");
-        gameController = transform.GetComponentInParent<GameController>();
+        gameController = transform.GetComponentInParent<GameOrchestrator>();
     }
 
     // Update is called once per frame
