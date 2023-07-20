@@ -4,12 +4,9 @@ using UnityEngine;
 
 public static class GameOptions
 {
-    public static bool singlePlayer = true;
-    public static GameType gameType;
-}
-
-public enum GameType{
-    TicTacToe,
-    TickOatTwo,
-    WildTicTacToe
+    public static bool SinglePlayer {get; set;} = true;
+    public static GameType GameType {get; set;}
+    public static bool GameOver {get; set;}
+    public static bool PlayerTurn {get; set;}
+    public static bool AnimationPlaying {get; set;}
 }

@@ -24,7 +24,7 @@ public class GameOrchestrator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameOptions.singlePlayer){
+        if(GameOptions.SinglePlayer){
             if(!animationPlaying){
                 if(!playerTurn){
                     if(!globalGameState.gameOver){
