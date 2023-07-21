@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ComputerMoveCalculatorFactory
 {
     public ComputerMoveCalculator make(){
-        return new HardComputerMoveCalc();
+
+        return new HardComputerMoveCalc(new DefaultMovesCalculator());
     }
 }
