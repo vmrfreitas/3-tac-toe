@@ -7,18 +7,12 @@ using UnityEngine.SceneManagement;
 public class ComputerMoveCalculatorFactory
 {
     public ComputerMoveCalculator make(){
-        switch(GameState.gameType){ // TODO: movesCalc needs to receive stateChecker as argument and added here
-            case GameType.TicTacToe:
-                return new HardComputerMoveCalc(new DefaultMovesCalculator());
-                break;
-            case GameType.WildTicTacToe:
-                return new HardComputerMoveCalc(new WildMovesCalculator());
-                break;
-            case GameType.TickOatTwo:
-                return new HardComputerMoveCalc(new TickOatMovesCalculator());
-                break;
-            default:
-                return new HardComputerMoveCalc(new DefaultMovesCalculator());
-        }       
+        return GameState.gameType switch
+        { // TODO: movesCalc needs to receive stateChecker as argument and added here
+            GameType.TicTacToe => new HardComputerMoveCalc(new DefaultMovesCalculator()),
+            GameType.WildTicTacToe => new HardComputerMoveCalc(new WildMovesCalculator()),
+            GameType.TickOatTwo => new HardComputerMoveCalc(new TickOatMovesCalculator()),
+            _ => new HardComputerMoveCalc(new DefaultMovesCalculator()),
+        };
     }
 }
