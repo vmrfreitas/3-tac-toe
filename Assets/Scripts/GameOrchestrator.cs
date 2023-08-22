@@ -10,8 +10,8 @@ public class GameOrchestrator : MonoBehaviour
 {
     private ComputerMoveCalculatorFactory computerMoveCalculatorFactory;
     private ComputerMoveCalculator computerMoveCalculator;
-    private BoardStateUpdater boardStateUpdater;
     private GameUpdateValidator gameUpdateValidator;
+    private BoardStateChecker boardStateChecker;
     public GameObject game;
     public Sprite xSprite;
     public Sprite oSprite;
@@ -25,8 +25,7 @@ public class GameOrchestrator : MonoBehaviour
         // ideally this would go in a GameOrchestratorAssembler to separate the creation responsability from the orchestration
         // but I'm not really sure how unity would deal with assembling a MonoBehaviour class outside of the scene
         computerMoveCalculatorFactory = new ComputerMoveCalculatorFactory();
-        computerMoveCalculator = computerMoveCalculatorFactory.make();
-        boardStateUpdater = new BoardStateUpdater();
+        (computerMoveCalculator, boardStateChecker) = computerMoveCalculatorFactory.make();
         gameUpdateValidator = new GameUpdateValidator(new List<GameUpdateValidationRule> {
             new GameOverValidationRule(),
             new PlayerTurnValidationRule(),

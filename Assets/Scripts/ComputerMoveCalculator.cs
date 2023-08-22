@@ -5,5 +5,5 @@ using UnityEngine.SceneManagement;
 
 public interface ComputerMoveCalculator
 {
-    public Vector2 calculate();
+    public Vector2 calculate(BoardState boardState);
 }
