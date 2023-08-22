@@ -17,7 +17,7 @@ public class GameOrchestrator : MonoBehaviour
     public Sprite oSprite;
     public bool playerTurn;
     public bool animationPlaying;
-    public GameState globalGameState = new GameState();
+    public GameState globalGameState = new();
     int[] checkValues = new int[5];
     // Start is called before the first frame update
     void Start()
