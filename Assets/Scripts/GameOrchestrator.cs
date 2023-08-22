@@ -17,6 +17,7 @@ public class GameOrchestrator : MonoBehaviour
     public Sprite oSprite;
     public bool playerTurn;
     public bool animationPlaying;
+    private BoardState boardState = new();
     public GameState globalGameState = new();
     int[] checkValues = new int[5];
     // Start is called before the first frame update
@@ -42,8 +43,9 @@ public class GameOrchestrator : MonoBehaviour
             if(!animationPlaying){
                 if(!playerTurn){
                     if(!globalGameState.gameOver){
+                        Vector2 computerMove = computerMoveCalculator.calculate(boardState);
                         Vector2 aiMove = getAiMove();
-                        globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1;
+                        globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1; // this will change for every game type tho... oof
                         updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
                         checkGameState(globalGameState, true);
                         playerTurn = true;

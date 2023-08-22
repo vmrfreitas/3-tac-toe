@@ -39,19 +39,22 @@ public class MainMenu : MonoBehaviour
     }
 
     public void TicTacToe(){
-        GameOptions.GameType = GameType.TicTacToe;
+        //GameOptions.GameType = GameType.TicTacToe;
+        GameState.gameType = GameType.TicTacToe;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
     }
 
     public void TickOatTwo(){
-        GameOptions.GameType = GameType.TickOatTwo;
+        //GameOptions.GameType = GameType.TickOatTwo;
+        GameState.gameType = GameType.TickOatTwo;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
     }
 
     public void WildTicTacToe(){
-        GameOptions.GameType = GameType.WildTicTacToe;
+        //GameOptions.GameType = GameType.WildTicTacToe;
+        GameState.gameType = GameType.WildTicTacToe;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
     }
@@ -77,12 +80,14 @@ public class MainMenu : MonoBehaviour
     }
 
     public void SinglePlayerSelected(){
-        GameOptions.SinglePlayer = true;
+        //GameOptions.SinglePlayer = true;
+        GameState.singlePlayer = true;
         StartGame();
     }
 
     public void MultiPlayerSelected(){
-        GameOptions.SinglePlayer = false;
+        //GameOptions.SinglePlayer = false;
+        GameState.singlePlayer = false;
         StartGame();
     }
 
