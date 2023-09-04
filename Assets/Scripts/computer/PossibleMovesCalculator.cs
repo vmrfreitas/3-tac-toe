@@ -5,5 +5,5 @@ using UnityEngine.SceneManagement;
 
 public interface PossibleMovesCalculator
 {
-    public List<Vector2> calculate(int[,] boardMatrix);
+    public List<(Vector2, int)> calculate(int[,] boardMatrix, bool isMin);
 }

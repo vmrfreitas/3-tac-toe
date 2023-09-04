@@ -21,6 +21,17 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(false && spriteRenderer.sprite == null){
+            int tileValue = gameController.getTileValue(tileCoord);
+            if(tileValue == 1){
+                StartCoroutine(animationDrawer.drawMove("x")); // will vary
+                //spriteRenderer.sprite = gameController.xSprite;
+            } else if(tileValue == -1){
+                StartCoroutine(animationDrawer.drawMove("o"));
+                //spriteRenderer.sprite = gameController.oSprite;
+            }
+        }
+
         if(spriteRenderer.sprite == null){
             int tileValue = gameController.globalGameState.gameMatrix[tileCoord.x, tileCoord.y];
             if(tileValue == 1){
@@ -33,21 +44,24 @@ public class TileController : MonoBehaviour
         }
     }
 
-    void OnMouseOver() {
-         if(Input.GetMouseButtonDown(0)){
-        if(gameController.playerTurn){
-            var gameState = gameController.globalGameState;
-            if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){ // will vary
-               
-                    gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
-                    gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
-                    gameController.checkGameState(gameState, true);
-                    gameController.playerTurn = false;
-                    gameController.animationPlaying = true;
+    void OnMouseOver() {        
+        if(Input.GetMouseButtonDown(0)){
+            if(false && GameState.playerTurn){
+                gameController.updateTileMove(tileCoord);
+            }
+            if(gameController.playerTurn){
+                var gameState = gameController.globalGameState;
+                if(gameState.gameMatrix[tileCoord.x, tileCoord.y]==0 && !gameState.gameOver){ // will vary
                 
+                        gameState.gameMatrix[tileCoord.x, tileCoord.y] = 1;
+                        gameController.updateGameState(gameState, tileCoord.x, tileCoord.y);
+                        gameController.checkGameState(gameState, true);
+                        gameController.playerTurn = false;
+                        gameController.animationPlaying = true;
+                    
+                }
             }
         }
-    }
     }
 }
 

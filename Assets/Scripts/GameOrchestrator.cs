@@ -39,13 +39,21 @@ public class GameOrchestrator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(false && gameUpdateValidator.validate()){
+            (Vector2, int) computerMove = computerMoveCalculator.calculate(boardState);
+            boardState.BoardMatrix[(int)computerMove.Item1.x, (int)computerMove.Item1.y] = computerMove.Item2;
+            BoardStateUpdater.update(boardState, (int)computerMove.Item1.x, (int)computerMove.Item1.y);
+            boardStateChecker.check(boardState, true);
+            GameOptions.AnimationPlaying = true;
+            GameOptions.PlayerTurn = true;
+        }
         if(GameOptions.SinglePlayer){
             if(!animationPlaying){
                 if(!playerTurn){
                     if(!globalGameState.gameOver){
-                        Vector2 computerMove = computerMoveCalculator.calculate(boardState);
+                        
                         Vector2 aiMove = getAiMove();
-                        globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1; // this will change for every game type tho... oof
+                        globalGameState.gameMatrix[(int)aiMove.x, (int)aiMove.y] = -1; // now, if everything is correct, computerMove.Item2 is the computerMove value
                         updateGameState(globalGameState, (int)aiMove.x, (int)aiMove.y);
                         checkGameState(globalGameState, true);
                         playerTurn = true;
@@ -55,6 +63,16 @@ public class GameOrchestrator : MonoBehaviour
             }
         }
     }
+
+    public void updateTileMove(Vector2Int tileCoord){
+        if(boardState.BoardMatrix[tileCoord.x, tileCoord.y]==0 && !GameOptions.GameOver){
+            boardState.BoardMatrix[tileCoord.x, tileCoord.y] = 1; // this will have to change too lol
+        }
+    }
+
+    public int getTileValue(Vector2Int tileCoord) {
+        return boardState.BoardMatrix[tileCoord.x, tileCoord.y];
+    } 
 
     public int checkGameState(GameState gameState, bool forReal){
         if(gameState.turnNum<5){

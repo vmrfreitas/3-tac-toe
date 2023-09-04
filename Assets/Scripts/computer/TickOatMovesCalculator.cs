@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TickOatMovesCalculator : PossibleMovesCalculator
 {
-    public List<Vector2> calculate(int[,] boardMatrix) {
+    public List<(Vector2, int)> calculate(int[,] boardMatrix, bool isMin) {
         /*
         List<Vector2> moves = new List<Vector2>();
         for(int i=0; i<3; i++){
@@ -16,6 +16,6 @@ public class TickOatMovesCalculator : PossibleMovesCalculator
             }
         }
         return moves;*/
-        return new List<Vector2>();
+        return new List<(Vector2, int)>();
     }
 }
