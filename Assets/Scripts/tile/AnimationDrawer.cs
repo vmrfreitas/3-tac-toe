@@ -20,7 +20,11 @@ public class AnimationDrawer : MonoBehaviour
     }
 
     public void animationStopped(){
-        if(gameController.animationPlaying){
+        if(GameOptions.AnimationPlaying){
+            GameOptions.AnimationPlaying = false;
+        }
+
+        if(false && gameController.animationPlaying){
             gameController.animationPlaying = false;
         }
     }

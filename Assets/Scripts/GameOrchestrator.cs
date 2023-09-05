@@ -39,15 +39,15 @@ public class GameOrchestrator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(false && gameUpdateValidator.validate()){
+        if(gameUpdateValidator.validate()){
+            Debug.Log("validated\n");
             (Vector2, int) computerMove = computerMoveCalculator.calculate(boardState);
-            boardState.BoardMatrix[(int)computerMove.Item1.x, (int)computerMove.Item1.y] = computerMove.Item2;
-            BoardStateUpdater.update(boardState, (int)computerMove.Item1.x, (int)computerMove.Item1.y);
-            boardStateChecker.check(boardState, true);
-            GameOptions.AnimationPlaying = true;
-            GameOptions.PlayerTurn = true;
+            Debug.Log(computerMove);
+            checkAndUpdateStateAndOptions(true, (int)computerMove.Item1.x, (int)computerMove.Item1.y, computerMove.Item2);
         }
-        if(GameOptions.SinglePlayer){
+
+        
+        if(false && GameOptions.SinglePlayer){
             if(!animationPlaying){
                 if(!playerTurn){
                     if(!globalGameState.gameOver){
@@ -66,8 +66,16 @@ public class GameOrchestrator : MonoBehaviour
 
     public void updateTileMove(Vector2Int tileCoord){
         if(boardState.BoardMatrix[tileCoord.x, tileCoord.y]==0 && !GameOptions.GameOver){
-            boardState.BoardMatrix[tileCoord.x, tileCoord.y] = 1; // this will have to change too lol
+            checkAndUpdateStateAndOptions(false, tileCoord.x, tileCoord.y, 1);
         }
+    }
+
+    private void checkAndUpdateStateAndOptions(bool playerTurn, int x, int y, int moveValue){
+        boardState.BoardMatrix[x, y] = moveValue;
+            BoardStateUpdater.update(boardState, x, y);
+            boardStateChecker.check(boardState, true);
+            GameOptions.PlayerTurn = playerTurn;
+            GameOptions.AnimationPlaying = true;
     }
 
     public int getTileValue(Vector2Int tileCoord) {

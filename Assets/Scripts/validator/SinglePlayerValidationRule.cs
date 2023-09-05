@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class SinglePlayerValidationRule : GameUpdateValidationRule
 {
     public bool isValid() {
-        return GameState.singlePlayer;
+        return GameOptions.SinglePlayer;
     }
 }

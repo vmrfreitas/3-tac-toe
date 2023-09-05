@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerTurnValidationRule : GameUpdateValidationRule
 {
     public bool isValid() {
-        return !GameState.playerTurn;
+        return !GameOptions.PlayerTurn;
     }
 }

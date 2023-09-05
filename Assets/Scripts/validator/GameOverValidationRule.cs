@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameOverValidationRule : GameUpdateValidationRule
 {
     public bool isValid() {
-        return !GameState.gameOver;
+        return !GameOptions.GameOver;
     }
 }

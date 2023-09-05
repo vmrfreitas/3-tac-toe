@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class AnimationPlayingValidationRule : GameUpdateValidationRule
 {
     public bool isValid() {
-        return !GameState.animationPlaying;
+        return !GameOptions.AnimationPlaying;
     }
 }
