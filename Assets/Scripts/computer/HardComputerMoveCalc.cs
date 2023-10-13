@@ -67,7 +67,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
     }
 
     private void makeMoveInGame(BoardState boardState, (Vector2, int) move){
-        boardState.BoardMatrix[(int)move.Item1.x, (int)move.Item1.y] = move.Item2;
+        boardState.BoardMatrix[(int)move.Item1.x, (int)move.Item1.y] += move.Item2;
         BoardStateUpdater.update(boardState, (int)move.Item1.x, (int)move.Item1.y);
     }
 }

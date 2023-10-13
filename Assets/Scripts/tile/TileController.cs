@@ -20,13 +20,7 @@ public class TileController : MonoBehaviour
     {
         if(spriteRenderer.sprite == null){
             int tileValue = gameOrchestrator.getTileValue(tileCoord);
-            if(tileValue == 1){
-                StartCoroutine(animationDrawer.drawMove("x")); // will vary
-                //spriteRenderer.sprite = gameOrchestrator.xSprite;
-            } else if(tileValue == -1){
-                StartCoroutine(animationDrawer.drawMove("o"));
-                //spriteRenderer.sprite = gameOrchestrator.oSprite;
-            }
+            StartCoroutine(animationDrawer.drawMove(AnimationPicker.pick(tileValue)));
         }
     }
 
