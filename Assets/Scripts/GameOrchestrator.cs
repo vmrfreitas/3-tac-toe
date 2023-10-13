@@ -54,10 +54,10 @@ public class GameOrchestrator : MonoBehaviour
 
     private void checkAndUpdateStateAndOptions(bool playerTurn, int x, int y, int moveValue){
         boardState.BoardMatrix[x, y] = moveValue;
-            BoardStateUpdater.update(boardState, x, y);
-            boardStateChecker.check(boardState, true);
-            GameOptions.PlayerTurn = playerTurn;
-            GameOptions.AnimationPlaying = true;
+        BoardStateUpdater.update(boardState, x, y);
+        boardStateChecker.check(boardState, true);
+        GameOptions.PlayerTurn = playerTurn;
+        GameOptions.AnimationPlaying = true;
     }
 
     public int getTileValue(Vector2Int tileCoord) {
