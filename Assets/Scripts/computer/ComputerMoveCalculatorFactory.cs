@@ -11,7 +11,7 @@ public class ComputerMoveCalculatorFactory
         BoardStateChecker wildBoardStateChecker = new WildBoardStateChecker();
         BoardStateChecker tickOatBoardStateChecker = new TickOatBoardStateChecker();
 
-        return GameState.gameType switch
+        return GameOptions.GameType switch
         {
             GameType.TicTacToe => (new HardComputerMoveCalc(new DefaultMovesCalculator(), defaultBoardStateChecker), defaultBoardStateChecker),
             GameType.WildTicTacToe => (new HardComputerMoveCalc(new WildMovesCalculator(), wildBoardStateChecker), wildBoardStateChecker),

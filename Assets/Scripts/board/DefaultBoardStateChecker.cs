@@ -13,14 +13,14 @@ public class DefaultBoardStateChecker : BoardStateChecker
         if(boardState.DiagonalSums[0] == 3 || boardState.DiagonalSums[1] == 3){
             if(forReal){
                 Debug.Log("player won");
-                GameState.gameOver = true;
+                GameOptions.GameOver = true;
             }
             boardState.gameOver = true;
             return 1;
         }else if(boardState.DiagonalSums[0]==-3 || boardState.DiagonalSums[1]==-3){
             if(forReal){
                 Debug.Log("computer won");
-                GameState.gameOver = true;
+                GameOptions.GameOver = true;
             }
             boardState.gameOver = true;
             return -1;
@@ -30,14 +30,14 @@ public class DefaultBoardStateChecker : BoardStateChecker
             if(boardState.LineSums[i]==3 || boardState.ColumnSums[i]==3){
                 if(forReal){
                     Debug.Log("player won");
-                    GameState.gameOver = true;
+                    GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
                 return 1;
             } else if(boardState.LineSums[i]==-3 || boardState.ColumnSums[i]==-3){
                 if(forReal){
                     Debug.Log("computer won");
-                    GameState.gameOver = true;
+                    GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
                 return -1;
@@ -47,7 +47,7 @@ public class DefaultBoardStateChecker : BoardStateChecker
         if (boardState.TurnNum == 9){
             if(forReal){
                 Debug.Log("its a tie!");
-                GameState.gameOver = true;
+                GameOptions.GameOver = true;
             }
             boardState.gameOver = true;
             return 0;
