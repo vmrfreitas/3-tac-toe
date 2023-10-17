@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public static class AnimationPicker
 {
-    public static string pick(int tileValue){
+    public static string pick(int tileValue, int previousTileValue){
         switch(GameOptions.GameType){
             case GameType.WildTicTacToe:
             case GameType.TicTacToe:
@@ -21,8 +21,10 @@ public static class AnimationPicker
                     return "vertical_line_drawing";
                 } else if(tileValue == 10){
                     return "horizontal_line_drawing";
-                } else if(tileValue == 11){
-                    return "plus_drawing";
+                } else if(previousTileValue == 10){
+                    return "plus_hor_drawing";
+                } else if(previousTileValue == 1){
+                    return "plus_ver_drawing";
                 }
                 break;
         }
