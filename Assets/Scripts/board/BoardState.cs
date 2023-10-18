@@ -10,6 +10,7 @@ public class BoardState {
         public int[] DiagonalSums {get; set;}
         public int TurnNum {get; set;}
         public bool gameOver;
+        public bool playerTurn;
 
 		public BoardState() {
 			BoardMatrix = new int[3, 3];

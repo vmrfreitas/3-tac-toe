@@ -20,6 +20,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
     }
 
     private (int, (Vector2, int)) minValue(BoardState boardState){
+        boardState.playerTurn = false;
         int utilityValue = _boardStateChecker.check(boardState, false);  // the stateChecker will need playerTurn for the wildtictactoe to work
         if(boardState.gameOver){
             return (utilityValue, (new Vector2(), 0));
@@ -44,6 +45,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
     }
 
     private (int, (Vector2, int)) maxValue(BoardState boardState){
+        boardState.playerTurn = true;
         int utilityValue = _boardStateChecker.check(boardState, false); 
         if(boardState.gameOver){
             return (utilityValue, (new Vector2(), 0));

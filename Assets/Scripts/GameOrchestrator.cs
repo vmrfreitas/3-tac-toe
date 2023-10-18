@@ -34,6 +34,7 @@ public class GameOrchestrator : MonoBehaviour
             new AnimationPlayingValidationRule(),
             new SinglePlayerValidationRule()
          });
+        boardState.playerTurn = true;
         playerTurn = true;
     }
 
@@ -41,7 +42,7 @@ public class GameOrchestrator : MonoBehaviour
     void Update()
     {
         if(gameUpdateValidator.validate()){
-            //Debug.Log("validated\n");
+            Debug.Log("validated\n");
             (Vector2, int) computerMove = computerMoveCalculator.calculate(boardState);
             //Debug.Log(computerMove);
             checkAndUpdateStateAndOptions(true, (int)computerMove.Item1.x, (int)computerMove.Item1.y, computerMove.Item2);
@@ -60,6 +61,7 @@ public class GameOrchestrator : MonoBehaviour
         BoardStateUpdater.update(boardState, x, y);
         boardStateChecker.check(boardState, true);
         GameOptions.PlayerTurn = playerTurn;
+        boardState.playerTurn = playerTurn;
         GameOptions.AnimationPlaying = true;
     }
 

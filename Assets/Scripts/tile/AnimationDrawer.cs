@@ -17,6 +17,7 @@ public class AnimationDrawer : MonoBehaviour
     }
 
     public void animationStopped(){
+        Debug.Log("I got called!");
         if(GameOptions.AnimationPlaying){
             GameOptions.AnimationPlaying = false;
         }

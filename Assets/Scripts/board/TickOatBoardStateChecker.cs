@@ -11,7 +11,7 @@ public class TickOatBoardStateChecker : BoardStateChecker
         }
 
         if(boardState.DiagonalSums[0] == 33 || boardState.DiagonalSums[1] == 33){
-            if(GameOptions.PlayerTurn){ // this is not enough, I need playerTurn on boardState not on gameOptions!
+            if(boardState.playerTurn){ // this is not enough, I need playerTurn on boardState not on gameOptions!
                 if(forReal){
                     Debug.Log("player won");
                     GameOptions.GameOver = true;
@@ -30,7 +30,7 @@ public class TickOatBoardStateChecker : BoardStateChecker
 
         for(int i=0; i<3; i++){
             if(boardState.LineSums[i]==33 || boardState.ColumnSums[i]==33){
-                if(GameOptions.PlayerTurn){
+                if(boardState.playerTurn){
                     if(forReal){
                         Debug.Log("player won");
                         GameOptions.GameOver = true;
