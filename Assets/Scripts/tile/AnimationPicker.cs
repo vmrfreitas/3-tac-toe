@@ -11,6 +11,7 @@ public static class AnimationPicker
             case GameType.WildTicTacToe:
             case GameType.TicTacToe:
                 if(tileValue == 1){
+                    Debug.Log("PICKED THE X LMAO");
                     return "x_drawing";
                 } else if(tileValue == -1){
                     return "o_drawing";
