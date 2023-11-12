@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DefaultMovesCalculator : PossibleMovesCalculator
 {
-    public List<(Vector2, int)> calculate(int[,] boardMatrix, bool isMin) {
+    public List<(Vector2, int)> calculate(BoardState boardState, bool isMin) {
         List<(Vector2, int)> moves = new();
         int moveValue;
         if(isMin){
@@ -15,7 +15,7 @@ public class DefaultMovesCalculator : PossibleMovesCalculator
         }
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
-                if(boardMatrix[i,j]==0){
+                if(boardState.BoardMatrix[i,j]==0){
                     moves.Add((new Vector2(i,j), moveValue));
                 }
             }

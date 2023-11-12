@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 
 public static class BoardStateUpdater
 {
-    public static void update(BoardState boardState, int x, int y){
+    public static void update(BoardState boardState, BoardState previousBoardState, int x, int y){ //confia, eu vo ter q mandar o previous e somar o matrix(atual) - matrix(previous)
         boardState.TurnNum++;
-        boardState.LineSums[x] += boardState.BoardMatrix[x, y];
-        boardState.ColumnSums[y] += boardState.BoardMatrix[x, y];
+        var addValue = boardState.BoardMatrix[x, y] - previousBoardState.BoardMatrix[x,y];
+        boardState.LineSums[x] += addValue;
+        boardState.ColumnSums[y] += addValue;
         if (x==y){
-            boardState.DiagonalSums[0] += boardState.BoardMatrix[x, y];
+            boardState.DiagonalSums[0] += addValue;
         }
         if(x==(2-y)){
-            boardState.DiagonalSums[1] += boardState.BoardMatrix[x, y];
+            boardState.DiagonalSums[1] += addValue;
         }
     }
 }

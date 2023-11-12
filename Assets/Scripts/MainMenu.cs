@@ -82,12 +82,16 @@ public class MainMenu : MonoBehaviour
     public void SinglePlayerSelected(){
         //GameOptions.SinglePlayer = true;
         GameOptions.SinglePlayer = true;
+        GameOptions.GameOver = false;
+        GameOptions.PlayerTurn = true;
         StartGame();
     }
 
     public void MultiPlayerSelected(){
         //GameOptions.SinglePlayer = false;
         GameOptions.SinglePlayer = false;
+        GameOptions.GameOver = false;
+        GameOptions.PlayerTurn = true;
         StartGame();
     }
 

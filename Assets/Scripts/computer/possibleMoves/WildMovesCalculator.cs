@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class WildMovesCalculator : PossibleMovesCalculator
 {
-    public  List<(Vector2, int)> calculate(int[,] boardMatrix, bool isMin) {
+    public  List<(Vector2, int)> calculate(BoardState boardState, bool isMin) {
         /*
         List<Vector2> moves = new List<Vector2>();
         for(int i=0; i<3; i++){

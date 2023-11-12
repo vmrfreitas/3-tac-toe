@@ -18,13 +18,19 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int tileValue, previousTileValue;
         if(GameOptions.tileValueChanged && tileCoord == GameOptions.changedTileCoord){
-            Debug.Log("it changed lol");
-            int tileValue, previousTileValue;
+            //Debug.Log("it changed lol");
             (tileValue, previousTileValue) = gameOrchestrator.getTileValues(tileCoord);
-            Debug.Log("tileValue = " + tileValue + ", previusTileValue = " + previousTileValue + "; coordinates = " + tileCoord.x + ", " + tileCoord.y);
+            //Debug.Log("tileValue = " + tileValue + ", previusTileValue = " + previousTileValue + "; coordinates = " + tileCoord.x + ", " + tileCoord.y);
             StartCoroutine(animationDrawer.drawMove(AnimationPicker.pick(tileValue, previousTileValue)));
             GameOptions.tileValueChanged = false;
+        }
+        (tileValue, previousTileValue) = gameOrchestrator.getTileValues(tileCoord);
+        if(GameOptions.GameType == GameType.TickOatTwo && (gameOrchestrator.isItPlayerPreviousTile(tileCoord) || gameOrchestrator.isItOtherPlayerPreviousTile(tileCoord)) &&  tileValue != 11){
+                spriteRenderer.color = Color.red;
+        }else{
+                spriteRenderer.color = Color.white;
         }
     }
 
@@ -44,21 +50,21 @@ public class TileController : MonoBehaviour
     }
 
     void UpdateTicOatTwo(){
-        if(GameOptions.PlayerTurn){
+        if(GameOptions.PlayerTurn && !gameOrchestrator.isItPreviousTile(tileCoord)){
             int tileValue, trashValue;
             (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
             if(tileValue == 0){
-                gameOrchestrator.updateTileMove(tileCoord, 1, false);
+                gameOrchestrator.updateTileMove(tileCoord, 1, true);
             } else if(tileValue == 10){
-                gameOrchestrator.updateTileMove(tileCoord, 11, false);
+                gameOrchestrator.updateTileMove(tileCoord, 11, true);
             }
-        } else if(!GameOptions.SinglePlayer){
+        } else if(!GameOptions.SinglePlayer && !gameOrchestrator.isItPreviousTile(tileCoord)){
             int tileValue, trashValue;
             (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
             if(tileValue == 0){
-                gameOrchestrator.updateTileMove(tileCoord, 10, true);
+                gameOrchestrator.updateTileMove(tileCoord, 10, false);
             } else if(tileValue == 1){
-                gameOrchestrator.updateTileMove(tileCoord, 11, true);
+                gameOrchestrator.updateTileMove(tileCoord, 11, false);
             }
         }
     }
@@ -68,10 +74,10 @@ public class TileController : MonoBehaviour
         (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
         if(tileValue==0){
             if(GameOptions.PlayerTurn){
-                Debug.Log("we updatin");
-                gameOrchestrator.updateTileMove(tileCoord, 1, false);
+                //Debug.Log("we updatin");
+                gameOrchestrator.updateTileMove(tileCoord, 1, true);
             } else if(!GameOptions.SinglePlayer){
-                gameOrchestrator.updateTileMove(tileCoord, -1, true);
+                gameOrchestrator.updateTileMove(tileCoord, -1, false);
             }
         }
     }

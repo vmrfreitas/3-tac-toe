@@ -11,12 +11,16 @@ public class BoardState {
         public int TurnNum {get; set;}
         public bool gameOver;
         public bool playerTurn;
+        public Vector2Int previousPlayerPlay;
+        public Vector2Int previousOtherPlayerPlay;
 
 		public BoardState() {
 			BoardMatrix = new int[3, 3];
 			LineSums = new int[3];
             ColumnSums = new int[3];
             DiagonalSums = new int[2];
+            previousPlayerPlay = new Vector2Int(-1,-1);
+            previousOtherPlayerPlay = new Vector2Int(-1,-1);
             TurnNum = 0;
 		}
 

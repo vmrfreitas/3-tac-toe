@@ -24,7 +24,6 @@ public class AnimationDrawer : MonoBehaviour
 
     public IEnumerator drawMove(string move){
         animator.Play(move);
-        Debug.Log("drawing :thonk:");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f );
     }
 }
