@@ -13,6 +13,7 @@ public class GameOrchestrator : MonoBehaviour
     private ComputerMoveCalculator computerMoveCalculator;
     private GameUpdateValidator gameUpdateValidator;
     private BoardStateChecker boardStateChecker;
+    public Choice choice;
     public GameObject game;
     public Sprite xSprite;
     public Sprite oSprite;
@@ -26,6 +27,9 @@ public class GameOrchestrator : MonoBehaviour
     {
         // ideally this would go in a GameOrchestratorAssembler to separate the creation responsability from the orchestration
         // but I'm not really sure how unity would deal with assembling a MonoBehaviour class outside of the scene
+        if(GameOptions.GameType == GameType.WildTicTacToe){
+            choice.transform.gameObject.SetActive(true);
+        }
         previousBoardMatrix = new int[3, 3];
         computerMoveCalculatorFactory = new ComputerMoveCalculatorFactory();
         (computerMoveCalculator, boardStateChecker) = computerMoveCalculatorFactory.make();

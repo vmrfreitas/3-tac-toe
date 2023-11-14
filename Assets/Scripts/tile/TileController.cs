@@ -41,6 +41,7 @@ public class TileController : MonoBehaviour
                     UpdateTicTacToe();
                     break;
                 case GameType.WildTicTacToe:
+                    UpdateWildTicTacToe();
                     break;
                 case GameType.TickOatTwo:
                     UpdateTicOatTwo();
@@ -70,6 +71,18 @@ public class TileController : MonoBehaviour
     }
 
     void UpdateTicTacToe(){
+        int tileValue, trashValue;
+        (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
+        if(tileValue==0){
+            if(GameOptions.PlayerTurn){
+                //Debug.Log("we updatin");
+                gameOrchestrator.updateTileMove(tileCoord, 1, true);
+            } else if(!GameOptions.SinglePlayer){
+                gameOrchestrator.updateTileMove(tileCoord, -1, false);
+            }
+        }
+    }
+    void UpdateWildTicTacToe(){
         int tileValue, trashValue;
         (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
         if(tileValue==0){
