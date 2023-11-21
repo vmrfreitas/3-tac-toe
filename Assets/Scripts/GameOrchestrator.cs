@@ -104,8 +104,8 @@ public class GameOrchestrator : MonoBehaviour
         previousBoardMatrix = (int[,])boardState.BoardMatrix.Clone();
         boardState.BoardMatrix[x, y] = moveValue;
         BoardStateUpdater.update(boardState, previousBoardState, x, y);
-         Debug.Log("we updated the tile to = " + boardState.BoardMatrix[x, y] + "; coordinates are = " + x + ", " + y 
-        +", now is it player's turn? " + boardState.playerTurn + ", and the middle column sum is: " + boardState.ColumnSums[1]);
+        //Debug.Log("we updated the tile to = " + boardState.BoardMatrix[x, y] + "; coordinates are = " + x + ", " + y 
+        //+", now is it player's turn? " + boardState.playerTurn + ", and the middle column sum is: " + boardState.ColumnSums[1]);
         boardStateChecker.check(boardState, true);
         GameOptions.AnimationPlaying = true;
         GameOptions.changedTileCoord = new Vector2Int(x, y);

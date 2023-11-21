@@ -12,4 +12,5 @@ public static class GameOptions
     public static bool tileValueChanged = false;
     public static Vector2Int changedTileCoord = new Vector2Int(-1, -1);
     public static int wildValue = 1;
+    public static int whoWon;
 }

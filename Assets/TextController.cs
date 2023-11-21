@@ -16,18 +16,45 @@ public class TextController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(GameOptions.SinglePlayer){
-            if(GameOptions.PlayerTurn){
-                turnText.text = "Player turn";
-            } else { 
-                turnText.text = "Computer turn";
-            }
-        } else {
-            if(GameOptions.PlayerTurn){
-                turnText.text = "Player 1 turn";
+        if(GameOptions.GameOver){
+            if(GameOptions.SinglePlayer){
+                switch(GameOptions.whoWon){
+                    case 0:
+                        turnText.text = "Player wins :)";
+                        break;
+                    case 1:
+                        turnText.text = "Computer wins";
+                        break;
+                    case 2:
+                        turnText.text = "Game tied";
+                        break;
+                }
             } else {
-                turnText.text = "Player 2 turn";
+                switch(GameOptions.whoWon){
+                    case 0:
+                        turnText.text = "Player 1 wins";
+                        break;
+                    case 1:
+                        turnText.text = "Player 2 wins";
+                        break;
+                    case 2:
+                        turnText.text = "Game tied";
+                        break;
+                }
+            }
+        } else{
+            if(GameOptions.SinglePlayer){
+                if(GameOptions.PlayerTurn){
+                    turnText.text = "Player turn";
+                } else { 
+                    turnText.text = "Computer turn";
+                }
+            } else {
+                if(GameOptions.PlayerTurn){
+                    turnText.text = "Player 1 turn";
+                } else {
+                    turnText.text = "Player 2 turn";
+                }
             }
         }
     }

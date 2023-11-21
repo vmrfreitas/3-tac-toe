@@ -15,13 +15,15 @@ public class WildBoardStateChecker : BoardStateChecker
             boardState.gameOver = true;
             if(boardState.playerTurn){
                 if(forReal){
-                    Debug.Log("player won");
+                    GameOptions.whoWon = 0;
+                    //Debug.Log("player won");
                     GameOptions.GameOver = true;
                 }
                 return 1;
             } else {
                 if(forReal){
-                    Debug.Log("computer won");
+                    GameOptions.whoWon = 1;
+                    //Debug.Log("computer won");
                     GameOptions.GameOver = true;
                 }
                 return -1;
@@ -34,13 +36,15 @@ public class WildBoardStateChecker : BoardStateChecker
                 boardState.gameOver = true;
                 if(boardState.playerTurn){
                     if(forReal){
-                        Debug.Log("player won");
+                        GameOptions.whoWon = 0;
+                        //Debug.Log("player won");
                         GameOptions.GameOver = true;
                     }
                     return 1;
                 } else {
                     if(forReal){
-                        Debug.Log("computer won");
+                        GameOptions.whoWon = 1;
+                        //Debug.Log("computer won");
                         GameOptions.GameOver = true;
                     }
                     return -1;
@@ -50,7 +54,8 @@ public class WildBoardStateChecker : BoardStateChecker
         
         if (boardState.TurnNum == 9){
             if(forReal){
-                Debug.Log("its a tie!");
+                GameOptions.whoWon = 2;
+                //Debug.Log("its a tie!");
                 GameOptions.GameOver = true;
             }
             boardState.gameOver = true;

@@ -13,7 +13,8 @@ public class TickOatBoardStateChecker : BoardStateChecker
         if(boardState.DiagonalSums[0] == 33 || boardState.DiagonalSums[1] == 33){
             if(boardState.playerTurn){
                 if(forReal){
-                    Debug.Log("player won");
+                    GameOptions.whoWon = 0;
+                    //Debug.Log("player won");
                     GameOptions.GameOver = true;
                 }
                 
@@ -21,7 +22,8 @@ public class TickOatBoardStateChecker : BoardStateChecker
                 return 1;
             } else {
                 if(forReal){
-                    Debug.Log("computer won");
+                    GameOptions.whoWon = 1;
+                    //Debug.Log("computer won");
                     GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
@@ -33,14 +35,16 @@ public class TickOatBoardStateChecker : BoardStateChecker
             if(boardState.LineSums[i]==33 || boardState.ColumnSums[i]==33){
                 if(boardState.playerTurn){
                     if(forReal){
-                        Debug.Log("player won");
+                        GameOptions.whoWon = 0;
+                        //Debug.Log("player won");
                         GameOptions.GameOver = true;
                     }
                     boardState.gameOver = true;
                     return 1;
                 } else {
                     if(forReal){
-                        Debug.Log("computer won");
+                        GameOptions.whoWon = 1;
+                        //Debug.Log("computer won");
                         GameOptions.GameOver = true;
                     }
                     boardState.gameOver = true;

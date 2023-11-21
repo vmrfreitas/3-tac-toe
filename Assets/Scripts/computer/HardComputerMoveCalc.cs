@@ -7,7 +7,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
 {
     private PossibleMovesCalculator _possibleMovesCalculator;
     private BoardStateChecker _boardStateChecker;
-    private int depth = 0;
+    private int repetitions = 0;
     
     public HardComputerMoveCalc(PossibleMovesCalculator possibleMovesCalculator, BoardStateChecker boardStateChecker) {
         _possibleMovesCalculator = possibleMovesCalculator;
@@ -16,14 +16,14 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
 
     public (Vector2, int) calculate(BoardState boardState) {
         BoardState localBoardState = boardState.clone();
-        depth = 0;
+        repetitions = 0;
         (var uselessValue, var aiMove) = minValue(localBoardState);
-        Debug.Log("A PROFUNDIDADE FOI: " + depth);
+        //Debug.Log("Number of repetitions: " + repetitions);
         return aiMove;
     }
 
     private (int, (Vector2, int)) minValue(BoardState boardState){
-        depth++;
+        repetitions++;
         boardState.playerTurn = true;
         int utilityValue = _boardStateChecker.check(boardState, false); 
         boardState.playerTurn = false;
@@ -39,7 +39,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
             newBoardState.previousOtherPlayerPlay.Set((int)move.Item1.x, (int)move.Item1.y);
             makeMoveInGame(newBoardState, move);
             (int value2, (Vector2, int) move2) = maxValue(newBoardState);
-            if(value2 == -1 || depth >= 4000){ // pruning
+            if(value2 == -1 || repetitions >= 4000){ // pruning
                 return (value2, move);
             }
             if(value2<value){
@@ -51,7 +51,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
     }
 
     private (int, (Vector2, int)) maxValue(BoardState boardState){
-        depth++;
+        repetitions++;
         boardState.playerTurn = false;
         int utilityValue = _boardStateChecker.check(boardState, false); 
         boardState.playerTurn = true;
@@ -66,7 +66,7 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
             newBoardState.previousPlayerPlay.Set((int)move.Item1.x, (int)move.Item1.y);
             makeMoveInGame(newBoardState, move);
             (int value2, (Vector2, int) move2) = minValue(newBoardState);
-            if(value2 == 1 || depth >= 4000){ // pruning
+            if(value2 == 1 || repetitions >= 4000){ // pruning
                 return (value2, move);
             }
             if(value2>value){
