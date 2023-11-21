@@ -8,6 +8,7 @@ public class TileController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private GameOrchestrator gameOrchestrator;
     public AnimationDrawer animationDrawer;
+    private static Color32 weirdGreen = new Color32(166,182,133, 255);
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class TileController : MonoBehaviour
         }
         (tileValue, previousTileValue) = gameOrchestrator.getTileValues(tileCoord);
         if(GameOptions.GameType == GameType.TickOatTwo && (gameOrchestrator.isItPlayerPreviousTile(tileCoord) || gameOrchestrator.isItOtherPlayerPreviousTile(tileCoord)) &&  tileValue != 11){
-                spriteRenderer.color = Color.red;
+                spriteRenderer.color = weirdGreen;
         }else{
                 spriteRenderer.color = Color.white;
         }
@@ -88,9 +89,9 @@ public class TileController : MonoBehaviour
         if(tileValue==0){
             if(GameOptions.PlayerTurn){
                 //Debug.Log("we updatin");
-                gameOrchestrator.updateTileMove(tileCoord, 1, true);
+                gameOrchestrator.updateTileMove(tileCoord, GameOptions.wildValue, true);
             } else if(!GameOptions.SinglePlayer){
-                gameOrchestrator.updateTileMove(tileCoord, -1, false);
+                gameOrchestrator.updateTileMove(tileCoord, GameOptions.wildValue, false);
             }
         }
     }
