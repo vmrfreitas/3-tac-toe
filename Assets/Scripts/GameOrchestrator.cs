@@ -27,6 +27,7 @@ public class GameOrchestrator : MonoBehaviour
         // ideally this would go in a GameOrchestratorAssembler to separate the creation responsability from the orchestration
         // but I'm not really sure how unity would deal with assembling a MonoBehaviour class outside of the scene
         if(GameOptions.GameType == GameType.WildTicTacToe){
+            GameOptions.wildValue = 1;
             choice.transform.gameObject.SetActive(true);
         }
         previousBoardMatrix = new int[3, 3];
