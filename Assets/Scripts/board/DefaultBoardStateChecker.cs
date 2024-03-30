@@ -13,7 +13,6 @@ public class DefaultBoardStateChecker : BoardStateChecker
         if(boardState.DiagonalSums[0] == 3 || boardState.DiagonalSums[1] == 3){
             if(forReal){
                 GameOptions.whoWon = 0;
-                //Debug.Log("player won");
                 GameOptions.GameOver = true;
             }
             boardState.gameOver = true;
@@ -21,7 +20,6 @@ public class DefaultBoardStateChecker : BoardStateChecker
         }else if(boardState.DiagonalSums[0]==-3 || boardState.DiagonalSums[1]==-3){
             if(forReal){
                 GameOptions.whoWon = 1;
-                //Debug.Log("computer won");
                 GameOptions.GameOver = true;
             }
             boardState.gameOver = true;
@@ -32,7 +30,6 @@ public class DefaultBoardStateChecker : BoardStateChecker
             if(boardState.LineSums[i]==3 || boardState.ColumnSums[i]==3){
                 if(forReal){
                     GameOptions.whoWon = 0;
-                    //Debug.Log("player won");
                     GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
@@ -40,7 +37,6 @@ public class DefaultBoardStateChecker : BoardStateChecker
             } else if(boardState.LineSums[i]==-3 || boardState.ColumnSums[i]==-3){
                 if(forReal){
                     GameOptions.whoWon = 1;
-                    //Debug.Log("computer won");
                     GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
@@ -51,7 +47,6 @@ public class DefaultBoardStateChecker : BoardStateChecker
         if (boardState.TurnNum == 9){
             if(forReal){
                 GameOptions.whoWon = 2;
-                //Debug.Log("its a tie!");
                 GameOptions.GameOver = true;
             }
             boardState.gameOver = true;

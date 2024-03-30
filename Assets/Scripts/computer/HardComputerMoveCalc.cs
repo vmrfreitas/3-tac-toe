@@ -18,7 +18,6 @@ public class HardComputerMoveCalc : ComputerMoveCalculator
         BoardState localBoardState = boardState.clone();
         repetitions = 0;
         (var uselessValue, var aiMove) = minValue(localBoardState);
-        //Debug.Log("Number of repetitions: " + repetitions);
         return aiMove;
     }
 

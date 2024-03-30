@@ -14,7 +14,6 @@ public class TickOatBoardStateChecker : BoardStateChecker
             if(boardState.playerTurn){
                 if(forReal){
                     GameOptions.whoWon = 0;
-                    //Debug.Log("player won");
                     GameOptions.GameOver = true;
                 }
                 
@@ -23,7 +22,6 @@ public class TickOatBoardStateChecker : BoardStateChecker
             } else {
                 if(forReal){
                     GameOptions.whoWon = 1;
-                    //Debug.Log("computer won");
                     GameOptions.GameOver = true;
                 }
                 boardState.gameOver = true;
@@ -36,7 +34,6 @@ public class TickOatBoardStateChecker : BoardStateChecker
                 if(boardState.playerTurn){
                     if(forReal){
                         GameOptions.whoWon = 0;
-                        //Debug.Log("player won");
                         GameOptions.GameOver = true;
                     }
                     boardState.gameOver = true;
@@ -44,7 +41,6 @@ public class TickOatBoardStateChecker : BoardStateChecker
                 } else {
                     if(forReal){
                         GameOptions.whoWon = 1;
-                        //Debug.Log("computer won");
                         GameOptions.GameOver = true;
                     }
                     boardState.gameOver = true;

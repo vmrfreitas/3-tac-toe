@@ -12,6 +12,7 @@ public class GameOrchestrator : MonoBehaviour
     private ComputerMoveCalculator computerMoveCalculator;
     private GameUpdateValidator gameUpdateValidator;
     private BoardStateChecker boardStateChecker;
+    public bool canClick = true;
     public Choice choice;
     public GameObject game;
     public Sprite xSprite;
@@ -47,9 +48,10 @@ public class GameOrchestrator : MonoBehaviour
     void Update()
     {
         if(gameUpdateValidator.validate()){
-            //Debug.Log("validated\n");
+            canClick = false;
             (Vector2, int) computerMove = computerMoveCalculator.calculate(boardState);
             checkAndUpdateStateAndOptions(false, (int)computerMove.Item1.x, (int)computerMove.Item1.y, computerMove.Item2);
+            canClick = true;
         }
     }
 
@@ -104,8 +106,6 @@ public class GameOrchestrator : MonoBehaviour
         previousBoardMatrix = (int[,])boardState.BoardMatrix.Clone();
         boardState.BoardMatrix[x, y] = moveValue;
         BoardStateUpdater.update(boardState, previousBoardState, x, y);
-        //Debug.Log("we updated the tile to = " + boardState.BoardMatrix[x, y] + "; coordinates are = " + x + ", " + y 
-        //+", now is it player's turn? " + boardState.playerTurn + ", and the middle column sum is: " + boardState.ColumnSums[1]);
         boardStateChecker.check(boardState, true);
         GameOptions.AnimationPlaying = true;
         GameOptions.changedTileCoord = new Vector2Int(x, y);

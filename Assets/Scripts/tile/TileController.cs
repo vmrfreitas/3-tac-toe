@@ -21,9 +21,7 @@ public class TileController : MonoBehaviour
     {
         int tileValue, previousTileValue;
         if(GameOptions.tileValueChanged && tileCoord == GameOptions.changedTileCoord){
-            //Debug.Log("it changed lol");
             (tileValue, previousTileValue) = gameOrchestrator.getTileValues(tileCoord);
-            //Debug.Log("tileValue = " + tileValue + ", previusTileValue = " + previousTileValue + "; coordinates = " + tileCoord.x + ", " + tileCoord.y);
             StartCoroutine(animationDrawer.drawMove(AnimationPicker.pick(tileValue, previousTileValue)));
             GameOptions.tileValueChanged = false;
         }
@@ -36,7 +34,8 @@ public class TileController : MonoBehaviour
     }
 
     void OnMouseOver() {        
-        if(Input.GetMouseButtonDown(0)){
+        if(gameOrchestrator.canClick && !GameOptions.AnimationPlaying && Input.GetMouseButtonDown(0)){
+            gameOrchestrator.canClick = false;
             switch(GameOptions.GameType){
                 case GameType.TicTacToe:
                     UpdateTicTacToe();
@@ -48,6 +47,7 @@ public class TileController : MonoBehaviour
                     UpdateTicOatTwo();
                     break;
             }
+            gameOrchestrator.canClick = true;
         }
     }
 
@@ -76,7 +76,6 @@ public class TileController : MonoBehaviour
         (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
         if(tileValue==0){
             if(GameOptions.PlayerTurn){
-                //Debug.Log("we updatin");
                 gameOrchestrator.updateTileMove(tileCoord, 1, true);
             } else if(!GameOptions.SinglePlayer){
                 gameOrchestrator.updateTileMove(tileCoord, -1, false);
@@ -88,7 +87,6 @@ public class TileController : MonoBehaviour
         (tileValue, trashValue) = gameOrchestrator.getTileValues(tileCoord);
         if(tileValue==0){
             if(GameOptions.PlayerTurn){
-                //Debug.Log("we updatin");
                 gameOrchestrator.updateTileMove(tileCoord, GameOptions.wildValue, true);
             } else if(!GameOptions.SinglePlayer){
                 gameOrchestrator.updateTileMove(tileCoord, GameOptions.wildValue, false);
