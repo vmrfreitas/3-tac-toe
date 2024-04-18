@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
         GameOptions.GameOver = false;
         GameOptions.PlayerTurn = true;
         GameOptions.CanClick = true;
+        GameOptions.AnimationPlaying = false;
         SceneManager.LoadScene("Game");
     }
 
