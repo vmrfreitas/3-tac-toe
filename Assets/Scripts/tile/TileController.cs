@@ -34,8 +34,8 @@ public class TileController : MonoBehaviour
     }
 
     void OnMouseOver() {        
-        if(gameOrchestrator.canClick && !GameOptions.AnimationPlaying && Input.GetMouseButtonDown(0)){
-            gameOrchestrator.canClick = false;
+        if(GameOptions.CanClick && !GameOptions.AnimationPlaying && Input.GetMouseButtonDown(0)){
+            GameOptions.CanClick = false;
             switch(GameOptions.GameType){
                 case GameType.TicTacToe:
                     UpdateTicTacToe();
@@ -47,7 +47,7 @@ public class TileController : MonoBehaviour
                     UpdateTicOatTwo();
                     break;
             }
-            gameOrchestrator.canClick = true;
+            GameOptions.CanClick = true;
         }
     }
 

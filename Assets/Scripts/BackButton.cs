@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class BackButton : MonoBehaviour
 {
     public void BackToMenu(){
-        SceneManager.LoadScene("Menu");
+        if(GameOptions.CanClick){
+            GameOptions.AnimationPlaying = false;
+            SceneManager.LoadScene("Menu");
+        }
     }
 }

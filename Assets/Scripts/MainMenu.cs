@@ -20,6 +20,9 @@ public class MainMenu : MonoBehaviour
     
 
     private void StartGame(){
+        GameOptions.GameOver = false;
+        GameOptions.PlayerTurn = true;
+        GameOptions.CanClick = true;
         SceneManager.LoadScene("Game");
     }
 
@@ -39,21 +42,18 @@ public class MainMenu : MonoBehaviour
     }
 
     public void TicTacToe(){
-        //GameOptions.GameType = GameType.TicTacToe;
         GameOptions.GameType = GameType.TicTacToe;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
     }
 
     public void TickOatTwo(){
-        //GameOptions.GameType = GameType.TickOatTwo;
         GameOptions.GameType = GameType.TickOatTwo;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
     }
 
     public void WildTicTacToe(){
-        //GameOptions.GameType = GameType.WildTicTacToe;
         GameOptions.GameType = GameType.WildTicTacToe;
         ShowGameTypes(false);
         ShowPlayerNumber(true);
@@ -80,18 +80,12 @@ public class MainMenu : MonoBehaviour
     }
 
     public void SinglePlayerSelected(){
-        //GameOptions.SinglePlayer = true;
         GameOptions.SinglePlayer = true;
-        GameOptions.GameOver = false;
-        GameOptions.PlayerTurn = true;
         StartGame();
     }
 
     public void MultiPlayerSelected(){
-        //GameOptions.SinglePlayer = false;
         GameOptions.SinglePlayer = false;
-        GameOptions.GameOver = false;
-        GameOptions.PlayerTurn = true;
         StartGame();
     }
 

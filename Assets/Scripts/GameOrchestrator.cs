@@ -12,7 +12,6 @@ public class GameOrchestrator : MonoBehaviour
     private ComputerMoveCalculator computerMoveCalculator;
     private GameUpdateValidator gameUpdateValidator;
     private BoardStateChecker boardStateChecker;
-    public bool canClick = true;
     public Choice choice;
     public GameObject game;
     public Sprite xSprite;
@@ -31,7 +30,6 @@ public class GameOrchestrator : MonoBehaviour
             GameOptions.wildValue = 1;
             choice.transform.gameObject.SetActive(true);
         }
-        canClick = true;
         previousBoardMatrix = new int[3, 3];
         computerMoveCalculatorFactory = new ComputerMoveCalculatorFactory();
         (computerMoveCalculator, boardStateChecker) = computerMoveCalculatorFactory.make();
@@ -49,10 +47,10 @@ public class GameOrchestrator : MonoBehaviour
     void Update()
     {
         if(gameUpdateValidator.validate()){
-            canClick = false;
+            GameOptions.CanClick = false;
             (Vector2, int) computerMove = computerMoveCalculator.calculate(boardState);
             checkAndUpdateStateAndOptions(false, (int)computerMove.Item1.x, (int)computerMove.Item1.y, computerMove.Item2);
-            canClick = true;
+            GameOptions.CanClick = true;
         }
     }
 
