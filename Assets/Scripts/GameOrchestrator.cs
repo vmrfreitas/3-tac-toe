@@ -21,7 +21,7 @@ public class GameOrchestrator : MonoBehaviour
     public bool animationPlaying;
     private BoardState boardState = new();
     private int[,] previousBoardMatrix;
-    int[] checkValues = new int[5];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +31,7 @@ public class GameOrchestrator : MonoBehaviour
             GameOptions.wildValue = 1;
             choice.transform.gameObject.SetActive(true);
         }
+        canClick = true;
         previousBoardMatrix = new int[3, 3];
         computerMoveCalculatorFactory = new ComputerMoveCalculatorFactory();
         (computerMoveCalculator, boardStateChecker) = computerMoveCalculatorFactory.make();
