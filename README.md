@@ -66,6 +66,7 @@ The factory receives the `GameType`, instantiates the `PossibleMovesCalculator` 
 These rules are to decide if the `Update` method from the `GameOrchestrator` is allowed to run. It can only run if the game is not over, if single player is selected, if there's no animation playing and if it isn't the player's turn.\
 The validator is a pretty abstraction for a big `if`, basically. Instead of checking all these 4 conditions, which are reflected on the validation rules classes, on a big if statement, it loops through all the rules and returns a true or false. With the validator I could add more conditions easily on the future.
 
-### TileController
+### TileController, AnimationDrawer and AnimationPicker
 
-This class is tied to the tile game object, which is the clickable space on the game. This controller will receive the player input and update the `BoardState` with it
+This class is tied to the "tile" game object, which is the clickable space on the game. This controller will receive the player input and update the `BoardState` with it.\
+Another responsability of this class is drawing on the tile. It calls the `AnimationDrawer` which draws whatever the `AnimationPicker` decides. The decision is made on the value of the tile and the `GameType`.
