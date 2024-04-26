@@ -75,7 +75,7 @@ Another responsability of this class is drawing on the tile. It calls the `Anima
 
 ## References
 
-Here's where I got the drawing for the **X** and **O** that I used:\
+Here's where I got the drawing for the **X** and **O** that I used: 
 <a href="https://www.vecteezy.com/free-vector/brush-stroke">Brush Stroke Vectors by Vecteezy</a>
 \
 \
