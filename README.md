@@ -26,7 +26,7 @@ On this mode you can draw your line on top of the opponent's `-` line, **but not
 The objective of this game is to draw 3 `+` (a vertical line on top of a horizontal line) on a line or on a diagonal, the first one to achieve this will win.
 
 ### Wild tic-tac-toe
-On this variant you can choose **on every move** if you want to draw an `X` or an `O`.\
+On this variant you can choose, **on every move**, if you want to draw an `X` or an `O`.\
 On the bottom right corner there are 2 checkboxes, the checkbox that is filled will be the symbol you chose to play.\
 There's also a three-by-three grid of empty spaces that you can click. Clicking a space will draw your chosen symbol and then the opponent's turn will begin. The opponent will also choose a symbol and draw it on another empty space and it will be your turn again.\
 The objective is to draw 3 equal symbols on a line or diagonal. The first one to achieve this will win. You can win using either `X` or `O`.
@@ -34,7 +34,7 @@ The objective is to draw 3 equal symbols on a line or diagonal. The first one to
 ## Class diagram
 ![architecture](./Architecture/3-tac-toe.svg)
 
-After completing the logic for tic-tac-toe, all of the code was on a god-class. Just thinking about including the two other versions gave me the chills. The design is the result of extracting everything from this god-class and **separating what changes**. This design doesn't reflect exaclty how the code looks now but the idea remained the same and the differences are part of the learning journey. Below I'll go class by class and explain it in more detail.
+After completing the logic for tic-tac-toe, all of the code was on a god-class. Just thinking about including the two other versions gave me the chills. The design is the result of extracting everything from this god-class and **separating what changes**. This design doesn't reflect exactly how the code looks now, but the idea remained the same and the differences are part of the learning journey. Below I'll go class by class and explain it in more detail.
 
 ### BoardState and GameState
 
@@ -49,12 +49,12 @@ These are static classes containing the game general context. These variables ar
 ### GameOrchestrator
 
 With the spirit of [favoring composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance), I created this class to be composed of the others and call their methods in the desired order. The `Start` and `Update` methods are default Unity methods, they are called when the Scene loads and every frame, respectively.\
-The idea was to have a `GameOrchestratorAssembler` class that would be responsible for instantiating and injecting the dependencies into the orchestrator class, but Unity didn't like the idea of assembling a `MonoBehaviour` class before loading the Scene (or at least I didn't try enough). Consequently the `Start` method was used for this purpose. It reads the `GameType` from the `GameState` and instantiates the according classes, for instance.
+The idea was to have a `GameOrchestratorAssembler` class that would be responsible for instantiating and injecting the dependencies into the orchestrator class, but Unity didn't like the idea of assembling a `MonoBehaviour` class before loading the Scene (or at least I didn't try enough). Consequently, the `Start` method was used for this purpose. It reads the `GameType` from the `GameState` and instantiates the according classes, for instance.
 
 ### PossibleMovesCalculator and BoardStateChecker
 
 The main thing that changes from game type to game type is how the computer decides its move. The `min` and `max` functions from the [minimax algorithm](https://en.wikipedia.org/wiki/Minimax) will calculate their values differently.\
-By making the code once and analysing it I decided that the two main things that change are: the possible moves available for the computer to make and how to decide if the game is over. So these two interfaces have one different implementation for each game type. Since I never use a state checker from a game type with a possible moves calculator from a different game type, the class responsible for creating this dependency is the `ComputerMoveCalculatorFactory`.
+By making the code once and analysing it I decided that the two main things that change are: the possible moves available for the computer to make and how to decide if the game is over. So these two interfaces have one different implementation for each game type. Since I never use a state checker from a game type with a possible moves calculator from a different game type, the class responsible for creating these dependencies is the `ComputerMoveCalculatorFactory`.
 
 
 ### ComputerMoveCalculator and its factory
@@ -71,3 +71,14 @@ The validator is a pretty abstraction for a big `if`, basically. Instead of chec
 
 This class is tied to the "tile" game object, which is the clickable space on the game. This controller will receive the player input and update the `BoardState` with it.\
 Another responsability of this class is drawing on the tile. It calls the `AnimationDrawer` which draws whatever the `AnimationPicker` decides. The decision is made on the value of the tile and the `GameType`.
+
+
+## References
+
+Here's where I got the drawing for the **X** and **O** that I used:\
+<a href="https://www.vecteezy.com/free-vector/brush-stroke">Brush Stroke Vectors by Vecteezy</a>
+\
+\
+Here's the video that taught me how to make the main menu: [START MENU in Unity by Brackeys](https://www.youtube.com/watch?v=zc8ac_qUXQY)\
+\
+And here's the TickOatTwo video: [I Made BETTER Tic-Tac-Toe by Oats Jenkins](https://www.youtube.com/watch?v=ePxrVU4M9uA)
